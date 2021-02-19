@@ -78,7 +78,7 @@
               name=""
               class="form-control"
               id="password"
-              required
+              
             />
           </div>
           <span
@@ -97,7 +97,7 @@
               name=""
               class="form-control"
               id="cpassword"
-              required
+              
             />
           </div>
           <span
@@ -112,9 +112,10 @@
             <input
               type="text"
               name=""
+              title="Please use small latter"
               class="form-control"
               id="email"
-              required
+              
             />
           </div>
           <span id="emailerror" class="text-danger row font-weight-bold"></span>
@@ -130,17 +131,14 @@
               name=""
               class="form-control"
               id="number"
-              required
+            
             />
           </div>
-          <span id="numberrror" class="text-danger row font-weight-bold"></span>
+          <span id="numbererror" class="text-danger row font-weight-bold"></span>
         </div>
 
         <div class="row">
-          <!-- <div class="col-sm-6"></div> -->
           <input type="submit" name="button" class="btn btn-dark mx-auto" />
-        <!-- </div> -->
-        <div class="row p-3"></div>
       </form>
     </div>
     <script>
@@ -151,7 +149,7 @@
         let number = document.getElementById("number").value;
 
         let passwordcheck = /^[A-Za-z0-9@#$_]{8,}$/;
-        let emailcheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let emailcheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/;
         let numbercheck = /^[1-9]{10}$/;
 
         if (passwordcheck.test(password)) {
@@ -162,8 +160,8 @@
           return false;
         }
 
-        if (password.match(cpassword) && passwordcheck.test(cpassword)) {
-          document.getElementById("passworderror").innerHTML = " ";
+        if((passwordcheck.test(cpassword)) && (password.match(cpassword))){
+          document.getElementById("cpassworderror").innerHTML = " ";
         } else {
           document.getElementById("cpassworderror").innerHTML =
             "**Password is not matching";
@@ -171,7 +169,7 @@
         }
 
         if (emailcheck.test(email)) {
-          document.getElementById("passworderror").innerHTML = " ";
+          document.getElementById("emailerror").innerHTML = " ";
         } else {
           document.getElementById("emailerror").innerHTML =
             "**Email is Invalid";
@@ -179,9 +177,9 @@
         }
 
         if (numbercheck.test(number)) {
-          document.getElementById("passworderror").innerHTML = " ";
+          document.getElementById("numbererror").innerHTML = " ";
         } else {
-          document.getElementById("numberserror").innerHTML =
+          document.getElementById("numbererror").innerHTML =
             "**Phone number is Invalid";
           return false;
         }
