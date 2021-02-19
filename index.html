@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <!-- Boostrap 4 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Boostrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .head, .btn {
+        color: #b41759;
+        background-color: #282c4e;
+        margin: 0;
+      }
+      form {
+        height: 600px;
+        background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            rgba(0, 0, 0, 0.46) 100%
+          ),
+          url("../validForm/mission.webp");
+      }
+     
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center head p-2">Form</h1>
+      <form onsubmit="return validation()">
+        <div class="row p-3"></div>
+        <div class="form-group row">
+          <div class="col-lg-2"></div>
+          <label for="username" class="col-lg-2 col-form-label font-weight-bold"
+            >Username :</label
+          >
+          <div class="col-lg-5">
+            <input
+              type="text"
+              name=""
+              class="form-control"
+              id="username"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-2"></div>
+          <label for="password" class="col-lg-2 col-form-label font-weight-bold"
+            >Password :</label
+          >
+          <div class="col-lg-5">
+            <input
+              type="password"
+              name=""
+              class="form-control"
+              id="password"
+              required
+            />
+          </div>
+          <span
+            id="passworderror"
+            class="text-danger row font-weight-bold"
+          ></span>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-2"></div>
+          <label for="cpassword" class="col-lg-2 col-form-label font-weight-bold"
+            >Confirm Password :</label
+          >
+          <div class="col-lg-5">
+            <input
+              type="password"
+              name=""
+              class="form-control"
+              id="cpassword"
+              required
+            />
+          </div>
+          <span
+            id="cpassworderror"
+            class="text-danger row font-weight-bold"
+          ></span>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-2"></div>
+          <label for="Email" class="col-lg-2 col-form-label font-weight-bold">Email :</label>
+          <div class="col-lg-5">
+            <input
+              type="text"
+              name=""
+              class="form-control"
+              id="email"
+              required
+            />
+          </div>
+          <span id="emailerror" class="text-danger row font-weight-bold"></span>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-2"></div>
+          <label for="number" class="col-lg-2 col-form-label font-weight-bold"
+            >Phone Number :</label
+          >
+          <div class="col-lg-5">
+            <input
+              type="number"
+              name=""
+              class="form-control"
+              id="number"
+              required
+            />
+          </div>
+          <span id="numberrror" class="text-danger row font-weight-bold"></span>
+        </div>
+
+        <div class="row">
+          <!-- <div class="col-sm-6"></div> -->
+          <input type="submit" name="button" class="btn btn-dark mx-auto" />
+        <!-- </div> -->
+        <div class="row p-3"></div>
+      </form>
+    </div>
+    <script>
+      function validation() {
+        let password = document.getElementById("password").value;
+        let cpassword = document.getElementById("cpassword").value;
+        let email = document.getElementById("email").value;
+        let number = document.getElementById("number").value;
+
+        let passwordcheck = /^[A-Za-z0-9@#$_]{8,}$/;
+        let emailcheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let numbercheck = /^[1-9]{10}$/;
+
+        if (passwordcheck.test(password)) {
+          document.getElementById("passworderror").innerHTML = " ";
+        } else {
+          document.getElementById("passworderror").innerHTML =
+            "**Minimum 8 character";
+          return false;
+        }
+
+        if (password.match(cpassword) && passwordcheck.test(cpassword)) {
+          document.getElementById("passworderror").innerHTML = " ";
+        } else {
+          document.getElementById("cpassworderror").innerHTML =
+            "**Password is not matching";
+          return false;
+        }
+
+        if (emailcheck.test(email)) {
+          document.getElementById("passworderror").innerHTML = " ";
+        } else {
+          document.getElementById("emailerror").innerHTML =
+            "**Email is Invalid";
+          return false;
+        }
+
+        if (numbercheck.test(number)) {
+          document.getElementById("passworderror").innerHTML = " ";
+        } else {
+          document.getElementById("numberserror").innerHTML =
+            "**Phone number is Invalid";
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>
