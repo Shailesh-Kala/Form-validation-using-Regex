@@ -1,0 +1,11 @@
+.head,
+.btn {
+  color: #b41759;
+  background-color: #282c4e;
+  margin: 0;
+}
+form {
+  height: 600px;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(0, 0, 0, 0.46) 100%),
+    url("../img/mission.jpeg");
+}
