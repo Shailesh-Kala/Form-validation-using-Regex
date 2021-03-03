@@ -1,93 +1,150 @@
-function validation() {
-  let password = document.getElementById("password").value;
-  let cpassword = document.getElementById("cpassword").value;
-  let email = document.getElementById("email").value;
-  let number = document.getElementById("number").value;
-  let ccNumber = document.getElementById("ccNumber").value;
+$(function () {
+  $("#username_error_message").hide();
+  $("#email_error_message").hide();
+  $("#password_error_message").hide();
+  $("#retype_password_error_message").hide();
+  $("#phone_number_error_message").hide();
+  $("#card_number_password_error_message").hide();
 
-  let passwordcheck = /^[A-Za-z0-9@#$_]{8,}$/;
-  let emailcheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/;
-  let numbercheck = /^[1-9]{10}$/;
-  let ccVisa = /^4[0-9]{12}(?:[0-9]{3})?$/;
-  let ccMastercard = /^5[1-5][0-9]{14}$/;
-  let ccAmexp = /^3[47][0-9]{13}$/;
-  let ccDiscov = /^6(?:011|5[0-9]{2})[0-9]{12}$/;
-  let ccElectron = /^(4026|417500|4405|4508|4844|4913|4917)d+$/;
-  let ccMaestro = /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/;
-  let ccDankort = /^(5019)\d+$/;
-  let ccInterpayment = /^(636)\d+$/;
-  let ccUnionpay = /^(62|88)\d+$/;
-  let ccDiners = /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/;
-  let ccJcb = /^(?:2131|1800|35\d{3})\d{11}$/;
+  let error_username = false;
+  let error_email = false;
+  let error_password = false;
+  let error_retype_password = false;
+  let error_phone_number = false;
+  let error_card_number = false;
 
-  if (passwordcheck.test(password)) {
-    document.getElementById("passworderror").innerHTML = " ";
-  } else if (password == Number(" ")) {
-    document.getElementById("passworderror").innerHTML =
-      "**Please enter Password";
-    return false;
-  } else {
-    document.getElementById("passworderror").innerHTML =
-      "**Minimum 8 character";
-    return false;
+  $("#form_username").focusout(function () {
+    check_username();
+  });
+  $("#form_email").focusout(function () {
+    check_email();
+  });
+  $("#form_password").focusout(function () {
+    check_password();
+  });
+  $("#form_retype_password").focusout(function () {
+    check_retype_password();
+  });
+  $("#form_phone_number").focusout(function () {
+    check_phone_number();
+  });
+  $("#form_card_number").focusout(function () {
+    check_card_number();
+  });
+
+  function check_username() {
+    let pattern = /^[a-zA-Z ]*$/;
+    let username = $("#form_username").val();
+    if (pattern.test(username) && username !== "") {
+      $("#username_error_message").hide();
+      $("#form_username").css("border-bottom", "2px solid #34F458");
+    } else {
+      $("#username_error_message").html("Should contain only Characters*");
+      $("#username_error_message").show();
+      $("#form_username").css("border-bottom", "2px solid #F90A0A");
+      error_username = true;
+    }
   }
 
-  if (passwordcheck.test(cpassword) && password.match(cpassword)) {
-    document.getElementById("cpassworderror").innerHTML = " ";
-  } else if (cpassword == Number(" ")) {
-    document.getElementById("cpassworderror").innerHTML =
-      "**Please Re-enter Password";
-    return false;
-  } else {
-    document.getElementById("cpassworderror").innerHTML =
-      "**Password is not matching";
-    return false;
+  function check_password() {
+    let pattern = /^[A-Za-z0-9@#$_]{8,20}$/;
+    let password = $("#form_password").val();
+    if (pattern.test(password)) {
+      $("#password_error_message").hide();
+      $("#form_password").css("border-bottom", "2px solid #34F458");
+    } else {
+      $("#password_error_message").html("Atleast 8 Characters*");
+      $("#password_error_message").show();
+      $("#form_password").css("border-bottom", "2px solid #F90A0A");
+      error_password = true;
+    }
   }
 
-  if (emailcheck.test(email)) {
-    document.getElementById("emailerror").innerHTML = " ";
-  } else if (email == Number(" ")) {
-    document.getElementById("emailerror").innerHTML =
-      "**Please enter Email address";
-    return false;
-  } else {
-    document.getElementById("emailerror").innerHTML = "**Email is Invalid";
-    return false;
+  function check_retype_password() {
+    let pattern = /^[A-Za-z0-9@#$_]{8,20}$/;
+    let password = $("#form_password").val();
+    let retype_password = $("#form_retype_password").val();
+    if (password === retype_password && pattern.test(retype_password)) {
+      $("#retype_password_error_message").hide();
+      $("#form_retype_password").css("border-bottom", "2px solid #34F458");
+    } else {
+      $("#retype_password_error_message").html("Passwords Did not Matched*");
+      $("#retype_password_error_message").show();
+      $("#form_retype_password").css("border-bottom", "2px solid #F90A0A");
+      error_retype_password = true;
+    }
   }
 
-  if (numbercheck.test(number)) {
-    document.getElementById("numbererror").innerHTML = " ";
-  } else if (number == Number(" ")) {
-    document.getElementById("numbererror").innerHTML =
-      "**Please enter Phone number";
-    return false;
-  } else {
-    document.getElementById("numbererror").innerHTML =
-      "**Phone number is Invalid";
-    return false;
+  function check_email() {
+    let pattern = /^[a-z]+[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    let email = $("#form_email").val();
+    if (pattern.test(email) && email !== "") {
+      $("#email_error_message").hide();
+      $("#form_email").css("border-bottom", "2px solid #34F458");
+    } else {
+      $("#email_error_message").html("Invalid Email*");
+      $("#email_error_message").show();
+      $("#form_email").css("border-bottom", "2px solid #F90A0A");
+      error_email = true;
+    }
   }
 
-  if (
-    ccVisa.test(ccNumber) ||
-    ccMastercard.test(ccNumber) ||
-    ccAmexp.test(ccNumber) ||
-    ccDiscov.test(ccNumber) ||
-    ccElectron.test(ccNumber) ||
-    ccMaestro.test(ccNumber) ||
-    ccDankort.test(ccNumber) ||
-    ccInterpayment.test(ccNumber) ||
-    ccUnionpay.test(ccNumber) ||
-    ccDiners.test(ccNumber) ||
-    ccJcb.test(ccNumber)
-  ) {
-    document.getElementById("ccNumbererror").innerHTML = " ";
-  } else if (ccNumber == Number(" ")) {
-    document.getElementById("ccNumbererror").innerHTML =
-      "**Please enter Credit card number";
-    return false;
-  } else {
-    document.getElementById("ccNumbererror").innerHTML =
-      "**Your Card number is Invalid";
-    return false;
+  function check_phone_number() {
+    let pattern = /^(6|7|8|9)\d{9}$/;
+    let phone_number = $("#form_phone_number").val();
+    if (pattern.test(phone_number) && phone_number !== " ") {
+      $("#phone_number_error_message").hide();
+      $("#form_phone_number").css("border-bottom", "2px solid #34F458");
+    } else {
+      $("#phone_number_error_message").html("Invalid Phone Number*");
+      $("#phone_number_error_message").show();
+      $("#form_phone_number").css("border-bottom", "2px solid #F90A0A");
+      error_phone_number = true;
+    }
   }
-}
+
+  function check_card_number() {
+    let pattern = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
+    let card_number = $("#form_card_number").val();
+    if (pattern.test(card_number) && card_number !== " ") {
+      $("#card_number_error_message").hide();
+      $("#form_card_number").css("border-bottom", "2px solid #34F458");
+    } else {
+      $("#card_number_error_message").html("Invalid Credit Card Number*");
+      $("#card_number_error_message").show();
+      $("#form_card_number").css("border-bottom", "2px solid #F90A0A");
+      error_card_number = true;
+    }
+  }
+
+  $("#form").submit(function () {
+    error_username = false;
+    error_email = false;
+    error_password = false;
+    error_retype_password = false;
+    error_phone_number = false;
+    error_card_number = false;
+
+    check_username();
+    check_email();
+    check_password();
+    check_retype_password();
+    check_phone_number();
+    check_card_number();
+
+    if (
+      error_username === false &&
+      error_email === false &&
+      error_password === false &&
+      error_retype_password === false &&
+      error_phone_number === false &&
+      error_card_number === false
+    ) {
+      alert("Registration Successfull");
+      return true;
+    } else {
+      alert("Please Fill the form Correctly");
+      return false;
+    }
+  });
+});
