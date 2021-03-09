@@ -132,6 +132,12 @@ $(function () {
     check_phone_number();
     check_card_number();
 
+    let username = $("#form_username").val();
+    let password = $("#form_password").val();
+    let email = $("#form_email").val();
+    let phone_number = $("#form_phone_number").val();
+    let card_number = $("#form_card_number").val();
+
     if (
       error_username === false &&
       error_email === false &&
@@ -140,7 +146,13 @@ $(function () {
       error_phone_number === false &&
       error_card_number === false
     ) {
+      console.log(`Username: ${username}
+Password: ${password}
+Email: ${email}
+Phone Number: ${phone_number}
+Credit Card Number: ${card_number}`);
       alert("Registration Successfull");
+
       return true;
     } else {
       alert("Please Fill the form Correctly");
